@@ -1,0 +1,24 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "API com node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabrielsimongianotti/API.git"
+  },
+  "author": "gabriel simon gianotti",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gabrielsimongianotti/API/issues"
+  },
+  "homepage": "https://github.com/gabrielsimongianotti/API#readme",
+  "dependencies": {
+    "debug": "^4.1.1",
+    "express": "^4.16.4",
+    "http": "0.0.0"
+  }
+}
