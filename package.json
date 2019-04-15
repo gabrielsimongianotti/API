@@ -2,9 +2,9 @@
   "name": "api",
   "version": "1.0.0",
   "description": "API com node.js",
-  "main": "index.js",
+  "main": "./bin/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/server.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/gabrielsimongianotti/API#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "debug": "^4.1.1",
     "express": "^4.16.4",
     "http": "0.0.0"
