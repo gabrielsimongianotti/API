@@ -1,7 +1,9 @@
+'use strict';
 
-const app = require('../src/app')
+const app =require('../src/app');
 const http = require('http');
 const debug = require('debug')('nodestr:server');
+
 
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
@@ -14,21 +16,18 @@ server.on('listening', onListening);
 
 console.log('API rodando na port ' + port);
 
-// faz a API ultilizar um porta disponivel 
+// manda uma porto disponivel
 function normalizePort(val) {
     const port = parseInt(val, 10);
-
-    // se o valor não for um numero retorna 10
     if (isNaN(port)) {
         return val;
     }
-
     if (port >= 0) {
         return port;
     }
     return false;
 }
-// Erros da api
+// trata erros do servidor
 function onError(error) {
     if (error.syscall !== 'listen') {
         throw error;
@@ -49,6 +48,7 @@ function onError(error) {
             throw error;
     }
 }
+//start debug 
 function onListening() {
     const addr = server.address();
     const bind = typeof addf === 'string'

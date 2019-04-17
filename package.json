@@ -4,7 +4,7 @@
   "description": "API com node.js",
   "main": "./bin/server.js",
   "scripts": {
-    "start": "node ./bin/server.js"
+    "start": "./bin/server.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
     "body-parser": "^1.18.3",
     "debug": "^4.1.1",
     "express": "^4.16.4",
-    "http": "0.0.0"
+    "http": "0.0.0",
+    "mongoose": "^5.5.2"
   }
 }

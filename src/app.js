@@ -1,19 +1,25 @@
-'use strict';
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const mongoose = require('mongoose');
 
-//carrega as rotas
-const index = require('./routes/indexs');
-const product = require('./routes/product');
+var url = '';
+//conecta com o banco
+mongoose.connect(url,{ useNewUrlParser: true });
+const Product = require('./models/product');
 
-//converte tudo que chega na api para JSON
+const indexRoute =require('./route/index-route');
+const productsRoute = require('./route/product-route');
+
 app.use(bodyParser.json());
-// condifica a url 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 
-app.use('/', index);
-app.use('/products', product);
 
-module.exports = app;
+
+
+
+app.use('/',indexRoute);
+app.use('/products',productsRoute);
+
+
+module.exports= app;
