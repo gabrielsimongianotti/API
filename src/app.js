@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const mongoose = require('mongoose');
 
-var url = '';
+var url = 'mongodb+srv://test:test@cluster0-hlvl4.azure.mongodb.net/test?retryWrites=true';
 //conecta com o banco
 mongoose.connect(url,{ useNewUrlParser: true });
 const Product = require('./models/product');
