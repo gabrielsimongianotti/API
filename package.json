@@ -2,9 +2,9 @@
   "name": "api",
   "version": "1.0.0",
   "description": "API com node.js",
-  "main": "./bin/server.js",
+  "main": "./bin/index.js",
   "scripts": {
-    "start": "./bin/server.js"
+    "start": "./bin/index.js"
   },
   "repository": {
     "type": "git",
