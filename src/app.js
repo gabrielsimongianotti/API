@@ -3,15 +3,16 @@ const bodyParser = require('body-parser');
 const app = express();
 const mongoose = require('mongoose');
 
-// var url = 'mongodb+srv://test:test@cluster0-hlvl4.azure.mongodb.net/test?retryWrites=true';
-// // conecta com o banco
-// mongoose.connect(url,{ useNewUrlParser: true });
+// conecta com o banco
+
 var url = 'mongodb://127.0.0.1:27017/?gssapiServiceName=mongodb';
 mongoose.connect(url);
 
+//carrega os modulos
 const Product = require('./models/product');
 const Custumer = require('./models/custumer');
-
+const Order = require('./models/order');
+//carrega as rotas
 const indexRoute =require('./route/index-route');
 const productsRoute = require('./route/product-route');
 
