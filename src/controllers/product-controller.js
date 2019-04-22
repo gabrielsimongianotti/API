@@ -1,9 +1,12 @@
 const mongoose = require('mongoose');
 const Product = mongoose.model('Product');
+const ValidationContract = require('../validator/fluent-validator');
+const repository = require('../repositories/product-repository');
+
 exports.get = (req, res, next) => {
     Product
-        //    active so traz  apelios indicados
-        .find({ active: true }, 'title price slug')
+    repository
+        .get()
         .then(data => {
             res.status(200).send(data);
         }).catch(e => {
@@ -12,11 +15,21 @@ exports.get = (req, res, next) => {
 };
 
 exports.post = (req, res, next) => {
-    console.log(req.body)
-    var product = new Product(req.body);
+    let contract = new ValidationContract();
 
-    product
-        .save()
+    contract.hasMinLen(req.body.title, 3, "o titulo de conter no minimo 3 caracteres");
+    contract.hasMinLen(req.body.slug, 3, "o slug de conter no minimo 3 caracteres");
+    contract.hasMinLen(req.body.description, 3, "a description de conter no minimo 3 caracteres");
+
+    // se for contract.isValid() diferente true 
+    if (!contract.isValid()) {
+        console.log(contract.isValid());
+        res.status(400).send(contract.errors()).end();
+        return;
+    }
+
+    repository
+        .create(req.body)
         .then(x => {
             res.status(201).send({
                 message: 'preduto cadastrado com sucesso!',
@@ -32,19 +45,12 @@ exports.post = (req, res, next) => {
 };
 
 exports.put = (req, res, next) => {
-    Product
-        .findByIdAndUpdate(req.params.id,{
-            //dados que seram salvos
-            $set:{
-                title:req.body.title,
-                description:req.body.description,
-                price: req.body.price,
-                slug: req.body.slug
-            }
-        }).then(x=> {
+    repository
+        .update(req.params.id, req.body)
+        .then(x => {
             res.status(201).send({
-                message:'Produto atualizado com sucesso!'
-            }).catch(e=>{
+                message: 'Produto atualizado com sucesso!'
+            }).catch(e => {
                 res.status(400).send({
                     message: 'Falha ao atualizar produdo',
                     data: e
@@ -54,49 +60,44 @@ exports.put = (req, res, next) => {
 };
 
 exports.delete = (req, res, next) => {
-    Product
-        .findOneAndRemove(req.body.id)
-        .then(x=>{
+    repository
+        .delete(req.body.id)
+        .then(x => {
             res.status(200).send({
                 message: 'Produto removido com sucesso'
             });
         }).catch(e => {
             res.status(400).send({
-                message:'falha ao remover o produto',
+                message: 'falha ao remover o produto',
                 data: e
             })
         })
 };
 
 exports.getBySlug = (req, res, next) => {
-    Product
-        //    active so traz  apelios indicados
-        .findOne({
-            slug: req.params.slug,
-            active: true
-        }, 'title description price slug tags')
+    repository
+        .getBySlug(req.params.slug)
         .then(data => {
             res.status(200).send(data);
         }).catch(e => {
             res.status(400).send(e);
         });
 };
+
 exports.getById = (req, res, next) => {
-    Product
-        .findById(req.params.id)
+    repository
+        .getById(req.params.id)
         .then(data => {
             res.status(200).send(data);
         }).catch(e => {
             res.status(400).send(e);
         });
 };
+
 //fintro por tag
 exports.getByTag = (req, res, next) => {
-    Product
-        .find({
-            tags: req.params.tag,
-            active: true
-        }, 'title description price slug tags')
+    repository
+        .getByTag(req.params.tag)
         .then(data => {
             res.status(200).send(data);
         }).catch(e => {
