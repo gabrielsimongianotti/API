@@ -16,4 +16,4 @@ const BlogPost = new Schema({
     }
 });
 
-module.exports = mongoose.model('Custumer',BlogPost);
+module.exports = mongoose.model('Customer',BlogPost);
